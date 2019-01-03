@@ -1,0 +1,352 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="author" content="浦雷"><link rel="alternative" href="/atom.xml" title="浦雷" type="application/atom+xml"><link rel="icon" href="/favicon.png"><title> - 浦雷</title><link rel="stylesheet" href="/css/main.css"><link rel="stylesheet" href="/js/fancybox/jquery.fancybox.min.css"><!--[if lt IE 9]><script>(function(a,b){a="abbr article aside audio bdi canvas data datalist details dialog figcaption figure footer header hgroup main mark meter nav output progress section summary template time video".split(" ");for(b=a.length-1;b>=0;b--)document.createElement(a[b])})()</script><![endif]--><script src="/js/jquery-3.1.1.min.js"></script><script src="/js/fancybox/jquery.fancybox.min.js"></script></head><body style="opacity:0"><header class="head"><h1 class="head-title u-fl"><a href="/">浦雷</a></h1><nav class="head-nav u-fr"><ul class="head-nav__list"><li class="head-nav__item"><a class="head-nav__link" href="/archives">博客文章/（点我呀！）</a></li></ul></nav></header><main class="main"><article class="post"><header class="post__head"> <time class="post__time" datetime="2019-01-03T01:37:26.428Z">January 3, 2019</time><h1 class="post__title"><a href="/2019/01/03/什么是springmvc/"></a></h1><div class="post__main echo"><hr>
+<h2 id="title-什么是springmvc"><a href="#title-什么是springmvc" class="headerlink" title="title: 什么是springmvc"></a>title: 什么是springmvc</h2><p>Spring web mvc和Struts2都属于表现层的框架,它是Spring框架的一部分,我们可以从Spring的整体结构中看得出来,如下图：</p>
+<p>2.2.Springmvc处理流程<br>如下图所示：</p>
+<p>2.3.入门程序<br>需求：使用浏览器显示商品列表<br>2.3.1.创建web工程<br>springMVC是表现层框架，需要搭建web工程开发。<br>如下图创建动态web工程：</p>
+<p>输入工程名，选择配置Tomcat（如果已有，则直接使用），如下图：</p>
+<p>配置Tomcat，如下图：</p>
+<p>选择准备好的Tomcat，这里用的是Tomcat7，如下图：</p>
+<p>选择成功，点击Finish，如下图：</p>
+<p>选择刚刚设置成功的Tomcat，如下图：</p>
+<p>如下图选择web的版本是2.5，可以自动生成web.xml配置文件，</p>
+<p>创建效果如下图：</p>
+<p>2.3.2.导入jar包<br>从课前资料中导入springMVC的jar包，位置如下图：</p>
+<p>复制jar到lib目录，工程直接加载jar包，如下图：</p>
+<p>2.3.3.加入配置文件<br>创建config资源文件夹，存放配置文件，如下图：</p>
+<p>2.3.3.1.创建springmvc.xml<br>创建SpringMVC的核心配置文件<br>SpringMVC本身就是Spring的子项目，对Spring兼容性很好，不需要做很多配置。<br>这里只配置一个Controller扫描就可以了，让Spring对页面控制层Controller进行管理。</p>
+<p>创建springmvc.xml<br>&lt;?xml version=”1.0” encoding=”UTF-8”?&gt;</p>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context" xmlns:mvc="http://www.springframework.org/schema/mvc" xsi:schemalocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd"><br><br>    <!-- 配置controller扫描包 --><br>    &lt;context:component-scan base-package=”cn.itcast.springmvc.controller” /&gt;<br><br></beans>
+
+<p>配置文件需要的约束文件，位置如下图：</p>
+<p>创建包cn.itcast.springmvc.controller<br>效果如下图：</p>
+<p>2.3.3.2.配置前端控制器<br>配置SpringMVC的前端控制器DispatcherServlet<br>在web.xml中<br>&lt;?xml version=”1.0” encoding=”UTF-8”?&gt;</p>
+<p><web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemalocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5"><br>    <display-name>springmvc-first</display-name><br>    <welcome-file-list><br>        <welcome-file>index.html</welcome-file><br>        <welcome-file>index.htm</welcome-file><br>        <welcome-file>index.jsp</welcome-file><br>        <welcome-file>default.html</welcome-file><br>        <welcome-file>default.htm</welcome-file><br>        <welcome-file>default.jsp</welcome-file><br>    </welcome-file-list></web-app></p>
+<pre><code>&lt;!-- 配置SpringMVC前端控制器 --&gt;
+&lt;servlet&gt;
+    &lt;servlet-name&gt;springmvc-first&lt;/servlet-name&gt;
+    &lt;servlet-class&gt;org.springframework.web.servlet.DispatcherServlet&lt;/servlet-class&gt;
+    &lt;!-- 指定SpringMVC配置文件 --&gt;
+    &lt;!-- SpringMVC的配置文件的默认路径是/WEB-INF/${servlet-name}-servlet.xml --&gt;
+    &lt;init-param&gt;
+        &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;
+        &lt;param-value&gt;classpath:springmvc.xml&lt;/param-value&gt;
+    &lt;/init-param&gt;
+&lt;/servlet&gt;
+
+&lt;servlet-mapping&gt;
+    &lt;servlet-name&gt;springmvc-first&lt;/servlet-name&gt;
+    &lt;!-- 设置所有以action结尾的请求进入SpringMVC --&gt;
+    &lt;url-pattern&gt;*.action&lt;/url-pattern&gt;
+&lt;/servlet-mapping&gt;
+</code></pre><p></p>
+<p>2.3.4.加入jsp页面<br>把参考资料中的itemList.jsp复制到工程的/WEB-INF/jsp目录下，如下图：</p>
+<p>2.3.5.实现显示商品列表页<br>2.3.5.1.创建pojo<br>分析页面，查看页面需要的数据，如下图：</p>
+<p>创建商品pojo<br>public class Item {<br>    // 商品id<br>    private int id;<br>    // 商品名称<br>    private String name;<br>    // 商品价格<br>    private double price;<br>    // 商品创建时间<br>    private Date createtime;<br>    // 商品描述<br>    private String detail;</p>
+<p>创建带参数的构造器<br>set/get。。。<br>}</p>
+<p>2.3.5.2.创建ItemController<br>ItemController是一个普通的java类，不需要实现任何接口。<br>需要在类上添加@Controller注解，把Controller交由Spring管理<br>在方法上面添加@RequestMapping注解，里面指定请求的url。其中“.action”可以加也可以不加。<br>@Controller<br>public class ItemController {</p>
+<pre><code>// @RequestMapping：里面放的是请求的url，和用户请求的url进行匹配
+// action可以写也可以不写
+@RequestMapping(&quot;/itemList.action&quot;)
+public ModelAndView queryItemList() {
+    // 创建页面需要显示的商品数据
+    List&lt;Item&gt; list = new ArrayList&lt;&gt;();
+    list.add(new Item(1, &quot;1华为 荣耀8&quot;, 2399, new Date(), &quot;质量好！1&quot;));
+    list.add(new Item(2, &quot;2华为 荣耀8&quot;, 2399, new Date(), &quot;质量好！2&quot;));
+    list.add(new Item(3, &quot;3华为 荣耀8&quot;, 2399, new Date(), &quot;质量好！3&quot;));
+    list.add(new Item(4, &quot;4华为 荣耀8&quot;, 2399, new Date(), &quot;质量好！4&quot;));
+    list.add(new Item(5, &quot;5华为 荣耀8&quot;, 2399, new Date(), &quot;质量好！5&quot;));
+    list.add(new Item(6, &quot;6华为 荣耀8&quot;, 2399, new Date(), &quot;质量好！6&quot;));
+
+    // 创建ModelAndView，用来存放数据和视图
+    ModelAndView modelAndView = new ModelAndView();
+    // 设置数据到模型中
+    modelAndView.addObject(&quot;list&quot;, list);
+    // 设置视图jsp，需要设置视图的物理地址
+    modelAndView.setViewName(&quot;/WEB-INF/jsp/itemList.jsp&quot;);
+
+    return modelAndView;
+}
+</code></pre><p>}</p>
+<p>2.3.6.启动项目测试<br>启动项目，浏览器访问地址<br><a href="http://127.0.0.1:8080/springmvc-first/itemList.action" target="_blank" rel="noopener">http://127.0.0.1:8080/springmvc-first/itemList.action</a></p>
+<p>效果如下图：</p>
+<p>为什么可以用呢？我们需要分析一下springMVC的架构图。</p>
+<p>3.Springmvc架构<br>3.1.框架结构<br>框架结构如下图：</p>
+<p>3.2.架构流程<br>1、用户发送请求至前端控制器DispatcherServlet<br>2、DispatcherServlet收到请求调用HandlerMapping处理器映射器。<br>3、处理器映射器根据请求url找到具体的处理器，生成处理器对象及处理器拦截器(如果有则生成)一并返回给DispatcherServlet。<br>4、DispatcherServlet通过HandlerAdapter处理器适配器调用处理器<br>5、执行处理器(Controller，也叫后端控制器)。<br>6、Controller执行完成返回ModelAndView<br>7、HandlerAdapter将controller执行结果ModelAndView返回给DispatcherServlet<br>8、DispatcherServlet将ModelAndView传给ViewReslover视图解析器<br>9、ViewReslover解析后返回具体View<br>10、DispatcherServlet对View进行渲染视图（即将模型数据填充至视图中）。<br>11、DispatcherServlet响应用户<br>3.3.组件说明<br>以下组件通常使用框架提供实现：<br>DispatcherServlet：前端控制器<br>用户请求到达前端控制器，它就相当于mvc模式中的c，dispatcherServlet是整个流程控制的中心，由它调用其它组件处理用户的请求，dispatcherServlet的存在降低了组件之间的耦合性。<br>HandlerMapping：处理器映射器<br>HandlerMapping负责根据用户请求url找到Handler即处理器，springmvc提供了不同的映射器实现不同的映射方式，例如：配置文件方式，实现接口方式，注解方式等。<br>Handler：处理器<br>Handler 是继DispatcherServlet前端控制器的后端控制器，在DispatcherServlet的控制下Handler对具体的用户请求进行处理。<br>由于Handler涉及到具体的用户业务请求，所以一般情况需要程序员根据业务需求开发Handler。</p>
+<p>HandlAdapter：处理器适配器<br>通过HandlerAdapter对处理器进行执行，这是适配器模式的应用，通过扩展适配器可以对更多类型的处理器进行执行。<br>下图是许多不同的适配器，最终都可以使用usb接口连接</p>
+<p>ViewResolver：视图解析器<br>View Resolver负责将处理结果生成View视图，View Resolver首先根据逻辑视图名解析成物理视图名即具体的页面地址，再生成View视图对象，最后对View进行渲染将处理结果通过页面展示给用户。<br>View：视图<br>springmvc框架提供了很多的View视图类型的支持，包括：jstlView、freemarkerView、pdfView等。我们最常用的视图就是jsp。<br>一般情况下需要通过页面标签或页面模版技术将模型数据通过页面展示给用户，需要由程序员根据业务需求开发具体的页面。</p>
+<p>说明：在springmvc的各个组件中，处理器映射器、处理器适配器、视图解析器称为springmvc的三大组件。<br>需要用户开发的组件有handler、view</p>
+<p>3.4.默认加载的组件<br>我们没有做任何配置，就可以使用这些组件<br>因为框架已经默认加载这些组件了，配置文件位置如下图：</p>
+<h1 id="Default-implementation-classes-for-DispatcherServlet’s-strategy-interfaces"><a href="#Default-implementation-classes-for-DispatcherServlet’s-strategy-interfaces" class="headerlink" title="Default implementation classes for DispatcherServlet’s strategy interfaces."></a>Default implementation classes for DispatcherServlet’s strategy interfaces.</h1><h1 id="Used-as-fallback-when-no-matching-beans-are-found-in-the-DispatcherServlet-context"><a href="#Used-as-fallback-when-no-matching-beans-are-found-in-the-DispatcherServlet-context" class="headerlink" title="Used as fallback when no matching beans are found in the DispatcherServlet context."></a>Used as fallback when no matching beans are found in the DispatcherServlet context.</h1><h1 id="Not-meant-to-be-customized-by-application-developers"><a href="#Not-meant-to-be-customized-by-application-developers" class="headerlink" title="Not meant to be customized by application developers."></a>Not meant to be customized by application developers.</h1><p>org.springframework.web.servlet.LocaleResolver=org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver</p>
+<p>org.springframework.web.servlet.ThemeResolver=org.springframework.web.servlet.theme.FixedThemeResolver</p>
+<p>org.springframework.web.servlet.HandlerMapping=org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping,\<br>    org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping</p>
+<p>org.springframework.web.servlet.HandlerAdapter=org.springframework.web.servlet.mvc.HttpRequestHandlerAdapter,\<br>    org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter,\<br>    org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter</p>
+<p>org.springframework.web.servlet.HandlerExceptionResolver=org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerExceptionResolver,\<br>    org.springframework.web.servlet.mvc.annotation.ResponseStatusExceptionResolver,\<br>    org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver</p>
+<p>org.springframework.web.servlet.RequestToViewNameTranslator=org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator</p>
+<p>org.springframework.web.servlet.ViewResolver=org.springframework.web.servlet.view.InternalResourceViewResolver</p>
+<p>org.springframework.web.servlet.FlashMapManager=org.springframework.web.servlet.support.SessionFlashMapManager</p>
+<p>3.5.组件扫描器<br>使用组件扫描器省去在spring容器配置每个Controller类的繁琐。<br>使用<a href="context:component-scan" target="_blank" rel="noopener">context:component-scan</a>自动扫描标记@Controller的控制器类，<br>在springmvc.xml配置文件中配置如下：<br><!-- 配置controller扫描包，多个包之间用,分隔 --><br>&lt;context:component-scan base-package=”cn.itcast.springmvc.controller” /&gt;</p>
+<p>3.6.注解映射器和适配器<br>3.6.1.配置处理器映射器<br>    注解式处理器映射器，对类中标记了@ResquestMapping的方法进行映射。根据@ResquestMapping定义的url匹配@ResquestMapping标记的方法，匹配成功返回HandlerMethod对象给前端控制器。<br>HandlerMethod对象中封装url对应的方法Method。 </p>
+<p>从spring3.1版本开始，废除了DefaultAnnotationHandlerMapping的使用，推荐使用RequestMappingHandlerMapping完成注解式处理器映射。</p>
+<p>在springmvc.xml配置文件中配置如下：<br><!-- 配置处理器映射器 --></p>
+<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"><br><br>注解描述：<br>@RequestMapping：定义请求url到处理器功能方法的映射<br><br>3.6.2.配置处理器适配器<br>注解式处理器适配器，对标记@ResquestMapping的方法进行适配。<br><br>从spring3.1版本开始，废除了AnnotationMethodHandlerAdapter的使用，推荐使用RequestMappingHandlerAdapter完成注解式处理器适配。<br><br>在springmvc.xml配置文件中配置如下：<br><!-- 配置处理器适配器 --><br><bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"><br><br><br>3.6.3.注解驱动<br>直接配置处理器映射器和处理器适配器比较麻烦，可以使用注解驱动来加载。<br>SpringMVC使用<a href="mvc:annotation-driven" target="_blank" rel="noopener">mvc:annotation-driven</a>自动加载RequestMappingHandlerMapping和RequestMappingHandlerAdapter<br>可以在springmvc.xml配置文件中使用<a href="mvc:annotation-driven" target="_blank" rel="noopener">mvc:annotation-driven</a>替代注解处理器和适配器的配置。<br><!-- 注解驱动 --><br>&lt;mvc:annotation-driven /&gt;<br><br>3.7.视图解析器<br>视图解析器使用SpringMVC框架默认的InternalResourceViewResolver，这个视图解析器支持JSP视图解析<br>在springmvc.xml配置文件中配置如下：<br>    <!-- Example: prefix="/WEB-INF/jsp/", suffix=".jsp", viewname="test" -> 
+        "/WEB-INF/jsp/test.jsp" --><br>    <!-- 配置视图解析器 --><br>    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"><br>        <!-- 配置逻辑视图的前缀 --><br>        <property name="prefix" value="/WEB-INF/jsp/"><br>        <!-- 配置逻辑视图的后缀 --><br>        <property name="suffix" value=".jsp"><br>    </property></property></bean><br>逻辑视图名需要在controller中返回ModelAndView指定，比如逻辑视图名为ItemList，则最终返回的jsp视图地址:<br>“WEB-INF/jsp/itemList.jsp”<br><br>最终jsp物理地址：前缀+逻辑视图名+后缀<br>3.7.1.修改ItemController<br>修改ItemController中设置视图的代码<br>// @RequestMapping：里面放的是请求的url，和用户请求的url进行匹配<br>// action可以写也可以不写<br>@RequestMapping(“/itemList.action”)<br>public ModelAndView queryItemList() {<br>    // 创建页面需要显示的商品数据<br>    List<item> list = new ArrayList&lt;&gt;();<br>    list.add(new Item(1, “1华为 荣耀8”, 2399, new Date(), “质量好！1”));<br>    list.add(new Item(2, “2华为 荣耀8”, 2399, new Date(), “质量好！2”));<br>    list.add(new Item(3, “3华为 荣耀8”, 2399, new Date(), “质量好！3”));<br>    list.add(new Item(4, “4华为 荣耀8”, 2399, new Date(), “质量好！4”));<br>    list.add(new Item(5, “5华为 荣耀8”, 2399, new Date(), “质量好！5”));<br>    list.add(new Item(6, “6华为 荣耀8”, 2399, new Date(), “质量好！6”));<br><br>    // 创建ModelAndView，用来存放数据和视图<br>    ModelAndView modelAndView = new ModelAndView();<br>    // 设置数据到模型中<br>    modelAndView.addObject(“itemList”, list);<br>    // 设置视图jsp，需要设置视图的物理地址<br>    // modelAndView.setViewName(“/WEB-INF/jsp/itemList.jsp”);<br>    // 配置好视图解析器前缀和后缀，这里只需要设置逻辑视图就可以了。<br>    // 视图解析器根据前缀+逻辑视图名+后缀拼接出来物理路径<br>    modelAndView.setViewName(“itemList”);<br><br>    return modelAndView;<br>}<br><br>3.7.2.效果<br>效果和之前一样，如下图：<br><br>4.整合mybatis<br>    为了更好的学习 springmvc和mybatis整合开发的方法，需要将springmvc和mybatis进行整合。<br><br>整合目标：控制层采用springmvc、持久层使用mybatis实现。<br>4.1.创建数据库表<br>sql脚本，位置如下图：<br><br><br>创建数据库表springmvc，导入到数据库中，如下图：<br><br><br>4.2.需要的jar包<br>1.spring（包括springmvc）<br>2.mybatis<br>3.mybatis-spring整合包<br>4.数据库驱动<br>5.第三方连接池。<br><br>jar包位置如下图：<br><br><br>4.3.整合思路<br>Dao层：<br>1、SqlMapConfig.xml，空文件即可，但是需要文件头。<br>2、applicationContext-dao.xml<br>a)数据库连接池<br>b)SqlSessionFactory对象，需要spring和mybatis整合包下的。<br>c)配置mapper文件扫描器。<br><br>Service层：<br>1、applicationContext-service.xml包扫描器，扫描@service注解的类。<br>2、applicationContext-trans.xml配置事务。<br><br>Controller层：<br>1、Springmvc.xml<br>a)包扫描器，扫描@Controller注解的类。<br>b)配置注解驱动<br>c)配置视图解析器<br><br>Web.xml文件：<br>1、配置spring<br>2、配置前端控制器。<br>4.4.创建工程<br>创建动态web工程springmvc-web，如下图：<br><br><br><br>4.5.加入jar包<br>复制jar包到/WEB-INF/lib中<br>工程自动加载jar包<br>4.6.加入配置文件<br>创建资源文件夹config<br>在其下创建mybatis和spring文件夹，用来存放配置文件，如下图：<br><br>4.6.1.sqlMapConfig.xml<br>使用逆向工程来生成Mapper相关代码，不需要配置别名。<br>在config/mybatis下创建SqlMapConfig.xml<br>&lt;?xml version=”1.0” encoding=”UTF-8”?&gt;<br>&lt;!DOCTYPE configuration<br>PUBLIC “-//mybatis.org//DTD Config 3.0//EN”<br>“<a href="http://mybatis.org/dtd/mybatis-3-config.dtd&quot;&gt;" target="_blank" rel="noopener">http://mybatis.org/dtd/mybatis-3-config.dtd&quot;&gt;</a><br><configuration><br><br></configuration><br><br>4.6.2.applicationContext-dao.xml<br>配置数据源、配置SqlSessionFactory、mapper扫描器。<br>&lt;?xml version=”1.0” encoding=”UTF-8”?&gt;<br><beans xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p" xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemalocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+    http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd"><br><br>    <!-- 加载配置文件 --><br>    &lt;context:property-placeholder location=”classpath:db.properties” /&gt;<br><br>    <!-- 数据库连接池 --><br>    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"><br>        <property name="driverClassName" value="${jdbc.driver}"><br>        <property name="url" value="${jdbc.url}"><br>        <property name="username" value="${jdbc.username}"><br>        <property name="password" value="${jdbc.password}"><br>        <property name="maxActive" value="10"><br>        <property name="maxIdle" value="5"><br>    </property></property></property></property></property></property></bean>
+
+<pre><code>&lt;!-- 配置SqlSessionFactory --&gt;
+&lt;bean id=&quot;sqlSessionFactory&quot; class=&quot;org.mybatis.spring.SqlSessionFactoryBean&quot;&gt;
+    &lt;!-- 数据库连接池 --&gt;
+    &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot; /&gt;
+    &lt;!-- 加载mybatis的全局配置文件 --&gt;
+    &lt;property name=&quot;configLocation&quot; value=&quot;classpath:mybatis/SqlMapConfig.xml&quot; /&gt;
+&lt;/bean&gt;
+
+&lt;!-- 配置Mapper扫描 --&gt;
+&lt;bean class=&quot;org.mybatis.spring.mapper.MapperScannerConfigurer&quot;&gt;
+    &lt;!-- 配置Mapper扫描包 --&gt;
+    &lt;property name=&quot;basePackage&quot; value=&quot;cn.itcast.ssm.mapper&quot; /&gt;
+&lt;/bean&gt;
+</code></pre><p></p></beans><p></p>
+<p>4.6.3.db.properties<br>配置数据库相关信息<br>jdbc.driver=com.mysql.jdbc.Driver<br>jdbc.url=jdbc:mysql://localhost:3306/springmvc?characterEncoding=utf-8<br>jdbc.username=root<br>jdbc.password=root</p>
+<p>4.6.4.applicationContext-service.xml<br>&lt;?xml version=”1.0” encoding=”UTF-8”?&gt;</p>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p" xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemalocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+    http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd"><br><br>    <!-- 配置service扫描 --><br>    &lt;context:component-scan base-package=”cn.itcast.ssm.service” /&gt;<br><br></beans>
+
+<p>4.6.5.applicationContext-trans.xml<br>&lt;?xml version=”1.0” encoding=”UTF-8”?&gt;</p>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p" xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemalocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+    http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd"><br><br>    <!-- 事务管理器 --><br>    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"><br>        <!-- 数据源 --><br>        <property name="dataSource" ref="dataSource"><br>    </property></bean><br><br>    <!-- 通知 --><br>    &lt;tx:advice id=”txAdvice” transaction-manager=”transactionManager”&gt;<br>        <a href="tx:attributes" target="_blank" rel="noopener">tx:attributes</a><br>            <!-- 传播行为 --><br>            &lt;tx:method name=”save<em>“ propagation=”REQUIRED” /&gt;<br>            &lt;tx:method name=”insert</em>“ propagation=”REQUIRED” /&gt;<br>            &lt;tx:method name=”delete<em>“ propagation=”REQUIRED” /&gt;<br>            &lt;tx:method name=”update</em>“ propagation=”REQUIRED” /&gt;<br>            &lt;tx:method name=”find<em>“ propagation=”SUPPORTS” read-only=”true” /&gt;<br>            &lt;tx:method name=”get</em>“ propagation=”SUPPORTS” read-only=”true” /&gt;<br>            &lt;tx:method name=”query<em>“ propagation=”SUPPORTS” read-only=”true” /&gt;<br>        &lt;/tx:attributes&gt;<br>    &lt;/tx:advice&gt;<br><br>    <!-- 切面 --><br>    <a href="aop:config" target="_blank" rel="noopener">aop:config</a><br>        &lt;aop:advisor advice-ref=”txAdvice”<br>            pointcut=”execution(</em> cn.itcast.ssm.service.<em>.</em>(..))” /&gt;<br>    &lt;/aop:config&gt;<br><br></beans>
+
+<p>4.6.6.springmvc.xml<br>&lt;?xml version=”1.0” encoding=”UTF-8”?&gt;</p>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context" xmlns:mvc="http://www.springframework.org/schema/mvc" xsi:schemalocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd"><br><br>    <!-- 配置controller扫描包 --><br>    &lt;context:component-scan base-package=”cn.itcast.ssm.controller” /&gt;<br><br>    <!-- 注解驱动 --><br>    &lt;mvc:annotation-driven /&gt;<br><br>    <!-- Example: prefix="/WEB-INF/jsp/", suffix=".jsp", viewname="test" -> 
+        "/WEB-INF/jsp/test.jsp" --><br>    <!-- 配置视图解析器 --><br>    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"><br>        <!-- 配置逻辑视图的前缀 --><br>        <property name="prefix" value="/WEB-INF/jsp/"><br>        <!-- 配置逻辑视图的后缀 --><br>        <property name="suffix" value=".jsp"><br>    </property></property></bean><br><br></beans>
+
+<p>4.6.7.web.xml<br>&lt;?xml version=”1.0” encoding=”UTF-8”?&gt;</p>
+<p><web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemalocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5"><br>    <display-name>springmvc-web</display-name><br>    <welcome-file-list><br>        <welcome-file>index.html</welcome-file><br>        <welcome-file>index.htm</welcome-file><br>        <welcome-file>index.jsp</welcome-file><br>        <welcome-file>default.html</welcome-file><br>        <welcome-file>default.htm</welcome-file><br>        <welcome-file>default.jsp</welcome-file><br>    </welcome-file-list></web-app></p>
+<pre><code>&lt;!-- 配置spring --&gt;
+&lt;context-param&gt;
+    &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;
+    &lt;param-value&gt;classpath:spring/applicationContext*.xml&lt;/param-value&gt;
+&lt;/context-param&gt;
+
+&lt;!-- 使用监听器加载Spring配置文件 --&gt;
+&lt;listener&gt;
+    &lt;listener-class&gt;org.springframework.web.context.ContextLoaderListener&lt;/listener-class&gt;
+&lt;/listener&gt;
+
+&lt;!-- 配置SrpingMVC的前端控制器 --&gt;
+&lt;servlet&gt;
+    &lt;servlet-name&gt;springmvc-web&lt;/servlet-name&gt;
+    &lt;servlet-class&gt;org.springframework.web.servlet.DispatcherServlet&lt;/servlet-class&gt;
+    &lt;init-param&gt;
+        &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;
+        &lt;param-value&gt;classpath:spring/springmvc.xml&lt;/param-value&gt;
+    &lt;/init-param&gt;
+&lt;/servlet&gt;
+
+&lt;servlet-mapping&gt;
+    &lt;servlet-name&gt;springmvc-web&lt;/servlet-name&gt;
+    &lt;!-- 配置所有以action结尾的请求进入SpringMVC --&gt;
+    &lt;url-pattern&gt;*.action&lt;/url-pattern&gt;
+&lt;/servlet-mapping&gt;
+</code></pre><p></p>
+<p>4.7.加入jsp页面<br>复制课前资料的itemList.jsp和itemEdit.jsp到工程中</p>
+<p>4.8.效果<br>配置完效果如下图：</p>
+<p>5.实现商品列表显示<br>5.1.需求<br>实现商品查询列表，从mysql数据库查询商品信息。</p>
+<p>5.2.DAO开发<br>使用逆向工程，生成代码</p>
+<p>注意修改逆向工程的配置文件，参考MyBatis第二天<br>逆向工程生成代码如下图：</p>
+<p>5.3.ItemService接口<br>public interface ItemService {</p>
+<pre><code>/**
+ * 查询商品列表
+ * 
+ * @return
+ */
+List&lt;Item&gt; queryItemList();
+</code></pre><p>}</p>
+<p>5.4.ItemServiceImpl实现类<br>@Service<br>public class ItemServiceImpl implements ItemService {</p>
+<pre><code>@Autowired
+private ItemMapper itemMapper;
+
+@Override
+public List&lt;Item&gt; queryItemList() {
+    // 从数据库查询商品数据
+    List&lt;Item&gt; list = this.itemMapper.selectByExample(null);
+
+    return list;
+}
+</code></pre><p>}</p>
+<p>5.5.ItemController<br>@Controller<br>public class ItemController {</p>
+<pre><code>@Autowired
+private ItemService itemService;
+
+/**
+ * 显示商品列表
+ * 
+ * @return
+ */
+@RequestMapping(&quot;/itemList&quot;)
+public ModelAndView queryItemList() {
+    // 获取商品数据
+    List&lt;Item&gt; list = this.itemService.queryItemList();
+
+    ModelAndView modelAndView = new ModelAndView();
+    // 把商品数据放到模型中
+    modelAndView.addObject(&quot;itemList&quot;, list);
+    // 设置逻辑视图
+    modelAndView.setViewName(&quot;itemList&quot;);
+
+    return modelAndView;
+}
+</code></pre><p>}</p>
+<p>5.6.测试<br>访问url：<br><a href="http://127.0.0.1:8080/springmvc-web/itemList.action" target="_blank" rel="noopener">http://127.0.0.1:8080/springmvc-web/itemList.action</a></p>
+<p>效果如下图：</p>
+<p>6.参数绑定<br>6.1.默认支持的参数类型<br>6.1.1.需求<br>打开商品编辑页面，展示商品信息。<br>6.1.2.需求分析<br>编辑商品信息，首先要显示商品详情<br>需要根据商品id查询商品信息，然后展示到页面。<br>请求的url：/itemEdit.action<br>参数：id（商品id）<br>响应结果：商品编辑页面，展示商品详细信息。<br>6.1.3.ItemService接口<br>编写ItemService接口如下图：</p>
+<p>6.1.4.ItemServiceImpl实现类<br>@Override<br>public Item queryItemById(int id) {<br>    Item item = this.itemMapper.selectByPrimaryKey(id);</p>
+<pre><code>return item;
+</code></pre><p>}</p>
+<p>6.1.5.ItemController<br>页面点击修改按钮，发起请求<br><a href="http://127.0.0.1:8080/springmvc-web/itemEdit.action?id=1" target="_blank" rel="noopener">http://127.0.0.1:8080/springmvc-web/itemEdit.action?id=1</a></p>
+<p>需要从请求的参数中把请求的id取出来。<br>Id包含在Request对象中。可以从Request对象中取id。</p>
+<p>想获得Request对象只需要在Controller方法的形参中添加一个参数即可。Springmvc框架会自动把Request对象传递给方法。</p>
+<p>代码实现<br>/**</p>
+<ul>
+<li>根据id查询商品</li>
+<li></li>
+<li>@param request</li>
+<li><p>@return<br>*/<br>@RequestMapping(“/itemEdit”)<br>public ModelAndView queryItemById(HttpServletRequest request) {<br> // 从request中获取请求参数<br> String strId = request.getParameter(“id”);<br> Integer id = Integer.valueOf(strId);</p>
+<p> // 根据id查询商品数据<br> Item item = this.itemService.queryItemById(id);</p>
+<p> // 把结果传递给页面<br> ModelAndView modelAndView = new ModelAndView();<br> // 把商品数据放在模型中<br> modelAndView.addObject(“item”, item);<br> // 设置逻辑视图<br> modelAndView.setViewName(“itemEdit”);</p>
+<p> return modelAndView;<br>}</p>
+</li>
+</ul>
+<p>6.1.6.默认支持的参数类型<br>处理器形参中添加如下类型的参数处理适配器会默认识别并进行赋值。<br>6.1.6.1.HttpServletRequest<br>通过request对象获取请求信息<br>6.1.6.2.HttpServletResponse<br>通过response处理响应信息<br>6.1.6.3.HttpSession<br>通过session对象得到session中存放的对象</p>
+<p>6.1.7.Model/ModelMap<br>6.1.7.1.Model<br>除了ModelAndView以外，还可以使用Model来向页面传递数据，<br>Model是一个接口，在参数里直接声明model即可。</p>
+<p>如果使用Model则可以不使用ModelAndView对象，Model对象可以向页面传递数据，View对象则可以使用String返回值替代。<br>不管是Model还是ModelAndView，其本质都是使用Request对象向jsp传递数据。<br>代码实现：<br>/**</p>
+<ul>
+<li>根据id查询商品,使用Model</li>
+<li></li>
+<li>@param request</li>
+<li>@param model</li>
+<li><p>@return<br>*/<br>@RequestMapping(“/itemEdit”)<br>public String queryItemById(HttpServletRequest request, Model model) {<br> // 从request中获取请求参数<br> String strId = request.getParameter(“id”);<br> Integer id = Integer.valueOf(strId);</p>
+<p> // 根据id查询商品数据<br> Item item = this.itemService.queryItemById(id);</p>
+<p> // 把结果传递给页面<br> // ModelAndView modelAndView = new ModelAndView();<br> // 把商品数据放在模型中<br> // modelAndView.addObject(“item”, item);<br> // 设置逻辑视图<br> // modelAndView.setViewName(“itemEdit”);</p>
+<p> // 把商品数据放在模型中<br> model.addAttribute(“item”, item);</p>
+<p> return “itemEdit”;<br>}</p>
+</li>
+</ul>
+<p>6.1.7.2.ModelMap<br>ModelMap是Model接口的实现类，也可以通过ModelMap向页面传递数据</p>
+<p>使用Model和ModelMap的效果一样，如果直接使用Model，springmvc会实例化ModelMap。</p>
+<p>代码实现：<br>/**</p>
+<ul>
+<li>根据id查询商品,使用ModelMap</li>
+<li></li>
+<li>@param request</li>
+<li>@param model</li>
+<li><p>@return<br>*/<br>@RequestMapping(“/itemEdit”)<br>public String queryItemById(HttpServletRequest request, ModelMap model) {<br> // 从request中获取请求参数<br> String strId = request.getParameter(“id”);<br> Integer id = Integer.valueOf(strId);</p>
+<p> // 根据id查询商品数据<br> Item item = this.itemService.queryItemById(id);</p>
+<p> // 把结果传递给页面<br> // ModelAndView modelAndView = new ModelAndView();<br> // 把商品数据放在模型中<br> // modelAndView.addObject(“item”, item);<br> // 设置逻辑视图<br> // modelAndView.setViewName(“itemEdit”);</p>
+<p> // 把商品数据放在模型中<br> model.addAttribute(“item”, item);</p>
+<p> return “itemEdit”;<br>}</p>
+</li>
+</ul>
+<p>6.2.绑定简单类型<br>当请求的参数名称和处理器形参名称一致时会将请求参数与形参进行绑定。<br>这样，从Request取参数的方法就可以进一步简化。<br>/**</p>
+<ul>
+<li>根据id查询商品,绑定简单数据类型</li>
+<li></li>
+<li>@param id</li>
+<li>@param model</li>
+<li><p>@return<br>*/<br>@RequestMapping(“/itemEdit”)<br>public String queryItemById(int id, ModelMap model) {<br> // 根据id查询商品数据<br> Item item = this.itemService.queryItemById(id);</p>
+<p> // 把商品数据放在模型中<br> model.addAttribute(“item”, item);</p>
+<p> return “itemEdit”;<br>}</p>
+</li>
+</ul>
+<p>6.2.1.支持的数据类型<br>参数类型推荐使用包装数据类型，因为基础数据类型不可以为null<br>整形：Integer、int<br>字符串：String<br>单精度：Float、float<br>双精度：Double、double<br>布尔型：Boolean、boolean<br>说明：对于布尔类型的参数，请求的参数值为true或false。或者1或0<br>请求url：<br><a href="http://localhost:8080/xxx.action?id=2&amp;status=false" target="_blank" rel="noopener">http://localhost:8080/xxx.action?id=2&amp;status=false</a></p>
+<p>处理器方法：<br>public String editItem(Model model,Integer id,Boolean status) </p>
+<p>6.2.2.@RequestParam<br>使用@RequestParam常用于处理简单类型的绑定。</p>
+<p>value：参数名字，即入参的请求参数名字，如value=“itemId”表示请求的参数       区中的名字为itemId的参数的值将传入</p>
+<p>required：是否必须，默认是true，表示请求中一定要有相应的参数，否则将报错<br>TTP Status 400 - Required Integer parameter ‘XXXX’ is not present</p>
+<p>defaultValue：默认值，表示如果请求中没有同名参数时的默认值</p>
+<p>定义如下：<br>@RequestMapping(“/itemEdit”)<br>public String queryItemById(@RequestParam(value = “itemId”, required = true, defaultValue = “1”) Integer id,<br>        ModelMap modelMap) {<br>    // 根据id查询商品数据<br>    Item item = this.itemService.queryItemById(id);</p>
+<pre><code>// 把商品数据放在模型中
+modelMap.addAttribute(&quot;item&quot;, item);
+
+return &quot;itemEdit&quot;;
+</code></pre><p>}</p>
+<p>6.3.绑定pojo类型<br>6.3.1.需求<br>将页面修改后的商品信息保存到数据库中。<br>6.3.2.需求分析<br>请求的url：/updateItem.action<br>参数：表单中的数据。<br>响应内容：更新成功页面<br>6.3.3.使用pojo接收表单数据<br>如果提交的参数很多，或者提交的表单中的内容很多的时候,可以使用简单类型接受数据,也可以使用pojo接收数据。<br>要求：pojo对象中的属性名和表单中input的name属性一致。</p>
+<p>页面定义如下图：</p>
+<p>Pojo(逆向工程生成)如下图：</p>
+<p>请求的参数名称和pojo的属性名称一致，会自动将请求参数赋值给pojo的属性。</p>
+<p>6.3.4.ItemService接口<br>ItemService里编写接口方法<br>/**</p>
+<ul>
+<li>根据id更新商品</li>
+<li></li>
+<li>@param item<br>*/<br>void updateItemById(Item item);</li>
+</ul>
+<p>6.3.5.ItemServiceImpl实现类<br>ItemServiceImpl里实现接口方法<br>使用updateByPrimaryKeySelective(item)方法，忽略空参数<br>@Override<br>public void updateItemById(Item item) {<br>    this.itemMapper.updateByPrimaryKeySelective(item);<br>}</p>
+<p>6.3.6.ItemController<br>/**</p>
+<ul>
+<li>更新商品,绑定pojo类型</li>
+<li></li>
+<li>@param item</li>
+<li>@param model</li>
+<li><p>@return<br>*/<br>@RequestMapping(“/updateItem”)<br>public String updateItem(Item item) {<br> // 调用服务更新商品<br> this.itemService.updateItemById(item);</p>
+<p> // 返回逻辑视图<br> return “success”;<br>}<br>注意：<br>提交的表单中不要有日期类型的数据，否则会报400错误。如果想提交日期类型的数据需要用到后面的自定义参数绑定的内容。</p>
+</li>
+</ul>
+<p>6.3.7.编写success页面<br>如下图创建success.jsp页面</p>
+<p>页面代码：<br>&lt;%@ page language=”java” contentType=”text/html; charset=UTF-8”<br>    pageEncoding=”UTF-8”%&gt;<br>&lt;!DOCTYPE html PUBLIC “-//W3C//DTD HTML 4.01 Transitional//EN” “<a href="http://www.w3.org/TR/html4/loose.dtd&quot;&gt;" target="_blank" rel="noopener">http://www.w3.org/TR/html4/loose.dtd&quot;&gt;</a></p>
+<html><br><head><meta name="generator" content="Hexo 3.8.0"><br><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><br><title>Insert title here</title><br></head><br><body><br><br><h1>商品修改成功！</h1><br><br></body><br></html>
+
+<p>6.3.8.解决post乱码问题<br>提交发现，保存成功，但是保存的是乱码<br>在web.xml中加入：<br>    <!-- 解决post乱码问题 --><br>    <filter><br>        <filter-name>encoding</filter-name><br>        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class><br>        <!-- 设置编码参是UTF8 --><br>        <init-param><br>            <param-name>encoding</param-name><br>            <param-value>UTF-8</param-value><br>        </init-param><br>    </filter><br>    <filter-mapping><br>        <filter-name>encoding</filter-name><br>        <url-pattern>/*</url-pattern><br>    </filter-mapping><br>以上可以解决post请求乱码问题。</p>
+<p>对于get请求中文参数出现乱码解决方法有两个：<br>修改tomcat配置文件添加编码与工程编码一致，如下：</p>
+<connector uriencoding="utf-8" connectiontimeout="20000" port="8080" protocol="HTTP/1.1" redirectport="8443">
+
+<p>另外一种方法对参数进行重新编码：<br>String userName new<br>String(request.getParamter(“userName”).getBytes(“ISO8859-1”),”utf-8”)<br>ISO8859-1是tomcat默认编码，需要将tomcat编码后的内容按utf-8编码<br>6.4.绑定包装pojo<br>6.4.1.需求<br>使用包装的pojo接收商品信息的查询条件。<br>6.4.2.需求分析<br>包装对象定义如下：<br>public class QueryVo {<br>    private Item item;<br>set/get。。。<br>}</p>
+<p>页面定义如下图：</p>
+<p>6.4.3.接收查询条件<br>    // 绑定包装数据类型<br>    @RequestMapping(“/queryItem”)<br>    public String queryItem(QueryVo queryVo) {<br>        System.out.println(queryVo.getItem().getId());<br>        System.out.println(queryVo.getItem().getName());</p>
+<pre><code>    return &quot;success&quot;;
+}
+</code></pre><p>6.5.自定义参数绑定<br>6.5.1.需求<br>在商品修改页面可以修改商品的生产日期，并且根据业务需求自定义日期格式。<br>6.5.2.需求分析<br>由于日期数据有很多种格式，springmvc没办法把字符串转换成日期类型。所以需要自定义参数绑定。</p>
+<p>前端控制器接收到请求后，找到注解形式的处理器适配器，对RequestMapping标记的方法进行适配，并对方法中的形参进行参数绑定。可以在springmvc处理器适配器上自定义转换器Converter进行参数绑定。</p>
+<p>一般使用<a href="mvc:annotation-driven/" target="_blank" rel="noopener">mvc:annotation-driven/</a>注解驱动加载处理器适配器，可以在此标签上进行配置。</p>
+<p>6.5.3.修改jsp页面<br>如下图修改itemEdit.jsp页面，显示时间</p>
+<p>6.5.4.自定义Converter<br>//Converter&lt;S, T&gt;<br>//S:source,需要转换的源的类型<br>//T:target,需要转换的目标类型<br>public class DateConverter implements Converter&lt;String, Date&gt; {</p>
+<pre><code>@Override
+public Date convert(String source) {
+    try {
+        // 把字符串转换为日期类型
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(&quot;yyy-MM-dd HH:mm:ss&quot;);
+        Date date = simpleDateFormat.parse(source);
+
+        return date;
+    } catch (ParseException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+    }
+    // 如果转换异常则返回空
+    return null;
+}
+</code></pre><p>}</p>
+<p>6.5.5.配置Converter<br>我们同时可以配置多个的转换器。<br>类似下图的usb设备，可以接入多个usb设备</p>
+<!-- 配置注解驱动 -->
+<!-- 如果配置此标签,可以不用配置... -->
+<p>&lt;mvc:annotation-driven conversion-service=”conversionService” /&gt;</p>
+<!-- 转换器配置 -->
+<bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean"><br>    <property name="converters"><br>        <set><br>            <bean class="cn.itcast.springmvc.converter.DateConverter"><br>        </bean></set><br>    </property><br></bean>
+
+<p>6.5.6.配置方式2（了解）<br><!--注解适配器 --></p>
+<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"><br>    <property name="webBindingInitializer" ref="customBinder"></property><br></bean>
+
+<!-- 自定义webBinder -->
+<bean id="customBinder" class="org.springframework.web.bind.support.ConfigurableWebBindingInitializer"><br>    <property name="conversionService" ref="conversionService"><br></property></bean>
+
+<!-- 转换器配置 -->
+<p><bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean"><br>    <property name="converters"><br>        <set><br>            <bean class="cn.itcast.springmvc.convert.DateConverter"><br>        </bean></set><br>    </property><br></bean><br>注意：此方法需要独立配置处理器映射器、适配器，<br>不再使用<a href="mvc:annotation-driven/" target="_blank" rel="noopener">mvc:annotation-driven/</a></p>
+<p>7.springmvc与struts2不同<br>1、springmvc的入口是一个servlet即前端控制器，而struts2入口是一个filter过滤器。<br>2、springmvc是基于方法开发(一个url对应一个方法)，请求参数传递到方法的形参，可以设计为单例或多例(建议单例)，struts2是基于类开发，传递参数是通过类的属性，只能设计为多例。<br>3、Struts采用值栈存储请求和响应的数据，通过OGNL存取数据， springmvc通过参数解析器是将request请求内容解析，并给方法形参赋值，将数据和视图封装成ModelAndView对象，最后又将ModelAndView中的模型数据通过request域传输到页面。Jsp视图解析器默认使用jstl。</p>
+</connector></item></bean></bean></div></header></article><section class="reward"> <a class="btn-reward" href="#">打赏</a><div class="reward-wrapper clearfix"><img src="/img/pl.png" title="微信"></div></section><div class="comments" id="lv-container" data-id="city" data-uid="your uid"><script>(function(d, s) {var j, e = d.getElementsByTagName(s)[0];if (typeof LivereTower === 'function') { return; } j = d.createElement(s);j.src = 'https://cdn-city.livere.com/js/embed.dist.js';j.async = true;e.parentNode.insertBefore(j, e);})(document, 'script');</script></div></main><footer class="foot"><div class="foot-copy">&copy; 2019 浦雷</div></footer><script src="/js/scroller.js"></script><script src="/js/main.js"></script></body></html>
