@@ -1,45 +1,29 @@
 <!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.8.0"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="author" content="浦雷"><link rel="alternative" href="/atom.xml" title="浦雷" type="application/atom+xml"><link rel="icon" href="/favicon.png"><title>spring是什么？ - 浦雷</title><link rel="stylesheet" href="/css/main.css"><link rel="stylesheet" href="/js/fancybox/jquery.fancybox.min.css"><!--[if lt IE 9]><script>(function(a,b){a="abbr article aside audio bdi canvas data datalist details dialog figcaption figure footer header hgroup main mark meter nav output progress section summary template time video".split(" ");for(b=a.length-1;b>=0;b--)document.createElement(a[b])})()</script><![endif]--><script src="/js/jquery-3.1.1.min.js"></script><script src="/js/fancybox/jquery.fancybox.min.js"></script></head><body style="opacity:0"><header class="head"><h1 class="head-title u-fl"><a href="/">浦雷</a></h1><nav class="head-nav u-fr"><ul class="head-nav__list"><li class="head-nav__item"><a class="head-nav__link" href="/archives">博客文章/（点我呀！）</a></li></ul></nav></header><main class="main"><article class="post"><header class="post__head"> <time class="post__time" datetime="2019-01-03T02:14:59.195Z">January 3, 2019</time><h1 class="post__title"><a href="/2019/01/03/spring是什么/">spring是什么？</a></h1><div class="post__main echo"><p> 1:是一个轻量级的开源框架，是为解决企业应用开发的复杂性而创建的；</p>
-<pre><code>2:是一个三层架构，也为J2EE应用程序开发提供集成的框架；
+<p> 2:是一个三层架构，也为J2EE应用程序开发提供集成的框架；</p>
+<pre><code>Web层：Spring MVC；
 
-        Web层：Spring MVC；
+业务层 ：Spring的IoC；
 
-        业务层 ：Spring的IoC；
-
-        持久层 ：Spring的JDBC、ORM、等持久层框架；
-
-3:Spring的核心是：控制反转(IoC)和面向切面编程(AOP)；
-</code></pre><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">IoC :控制反转</span><br></pre></td></tr></table></figure>
+持久层 ：Spring的JDBC、ORM、等持久层框架；
+</code></pre><p> 3:Spring的核心是：控制反转(IoC)和面向切面编程(AOP)；</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">IoC :控制反转</span><br></pre></td></tr></table></figure>
 <p> ①：控制反转模式(也称依赖性介入)，主要是不创建对象，但是描述创建它们的方式，在代码中不直接与对象和服务连接，但在配文件中描述哪一组件需要哪一个服务；   </p>
-<pre><code>②：IoC的设计目标是与JavaBean组件一起使用；
-
-③：直接作用在功能的底层；
-
-④：Spring里面最高级的抽象是BeanFactory(对应的是工厂模式)；
-
-        BeanFactory有两种模式：单态、原型；
-
-        单态：查询时对具有特定名称的对象共享实例进行检索；  eg：Singleton
-
-        原型：每次检索都会创建单独的对象，(在每个用户都需要自己的对象时，原型模式是最适合的)；
+<p> ②：IoC的设计目标是与JavaBean组件一起使用；</p>
+<p> ③：直接作用在功能的底层；</p>
+<p> ④：Spring里面最高级的抽象是BeanFactory(对应的是工厂模式)；</p>
+<p>   BeanFactory有两种模式：单态、原型；</p>
+<p>   单态：查询时对具有特定名称的对象共享实例进行检索；  eg：Singleton</p>
+<pre><code>原型：每次检索都会创建单独的对象，(在每个用户都需要自己的对象时，原型模式是最适合的)；
 </code></pre><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AOP :面向切面编程</span><br></pre></td></tr></table></figure>
 <p>①：可以说是oop（Object Oriented Programming，面向对象编程）的补充和完善；</p>
-<pre><code>               (OOP ：引入封装、继承、多态等概念来建立一种对象层次结构,用于模拟公共行为的集合，OOP允许开发者定义纵向的关系，但并不适合定义横向的关系，例如日志功能。日志代码往往横向地散布在所有对象层次中，而与它对应的对象的核心功能毫无关系对于其他类型的代码，如安全性，异常处理和透明的持续性也都是如此，这种散布在各处的无关的代码被称为横切（cross cutting），在OOP设计中，它导致了大量代码的重复，而不利于各个模块的重用)；
-
-     ②：AOP用的是和oop相反的一种叫&quot;横切&quot;的技术，打比方，一个类里面同样实现两个方法的那一段,就是将那些影响到多个类的公共行为都封装到一个可重用模块，这就是AOP中的A (Aspect，切面，与业务无关，主要是减少代码的复用)；
-
-     ③：横切把系统分为两个部分：核心关注点 (业务处理的主要流程) 和 横切关注点 (在核心关注点里的多出,各处基本相同)；
-
-     ④：AOP的作用在于分离系统中的各种关注点,将核心关注点和横切关注点分离开来；
-
-⑤ :横切关注点：eg：对哪些方法进行拦截,拦截后的处理；
-
-⑥ :切面 :类是对物体特征的抽象，切面就是对横切关注点的抽象；                
-
-⑦ :Spring中AOP代理由Spring的IoC容器负责生成、管理、依赖关系也由IoC容器负责管理(AOP代理可以直接使用容器中的其它bean实例作为目标，这种关系可由IOC容器的依赖注入提供；
-
- ⑧：Spring的代理默认使用java动态代理来创建AOP代理，这样可以为任何接口实例创建代理；
-
- ⑨：当需要代理的类不是代理接口的时候，Spring会切换为使用CGLIB代理；
-
-       CGLIB：就是一个强大的,高性能的代码生成库,主要通过 对字节码的操作为对象引入间接级别,以控制对象的访问)；
-</code></pre></div></header></article><section class="reward"> <a class="btn-reward" href="#">打赏</a><div class="reward-wrapper clearfix"><img src="/img/pl.png" title="微信"></div></section><div class="comments" id="lv-container" data-id="city" data-uid="your uid"><script>(function(d, s) {var j, e = d.getElementsByTagName(s)[0];if (typeof LivereTower === 'function') { return; } j = d.createElement(s);j.src = 'https://cdn-city.livere.com/js/embed.dist.js';j.async = true;e.parentNode.insertBefore(j, e);})(document, 'script');</script></div></main><footer class="foot"><div class="foot-copy">&copy; 2019 浦雷</div></footer><script src="/js/scroller.js"></script><script src="/js/main.js"></script></body></html>
+<pre><code>(OOP ：引入封装、继承、多态等概念来建立一种对象层次结构,用于模拟公共行为的集合，OOP允许开发者定义纵向的关系，但并不适合定义横向的关系，例如日志功能。日志代码往往横向地散布在所有对象层次中，而与它对应的对象的核心功能毫无关系对于其他类型的代码，如安全性，异常处理和透明的持续性也都是如此，这种散布在各处的无关的代码被称为横切（cross cutting），在OOP设计中，它导致了大量代码的重复，而不利于各个模块的重用)；
+</code></pre><p>②：AOP用的是和oop相反的一种叫”横切”的技术，打比方，一个类里面同样实现两个方法的那一段,就是将那些影响到多个类的公共行为都封装到一个可重用模块，这就是AOP中的A (Aspect，切面，与业务无关，主要是减少代码的复用)；</p>
+<p>③：横切把系统分为两个部分：核心关注点 (业务处理的主要流程) 和 横切关注点 (在核心关注点里的多出,各处基本相同)；</p>
+<p>④：AOP的作用在于分离系统中的各种关注点,将核心关注点和横切关注点分离开来；</p>
+<p>⑤ :横切关注点：eg：对哪些方法进行拦截,拦截后的处理；</p>
+<p>⑥ :切面 :类是对物体特征的抽象，切面就是对横切关注点的抽象；                </p>
+<p>⑦ :Spring中AOP代理由Spring的IoC容器负责生成、管理、依赖关系也由IoC容器负责管理(AOP代理可以直接使用容器中的其它bean实例作为目标，这种关系可由IOC容器的依赖注入提供；</p>
+<p>⑧：Spring的代理默认使用java动态代理来创建AOP代理，这样可以为任何接口实例创建代理；</p>
+<p>⑨：当需要代理的类不是代理接口的时候，Spring会切换为使用CGLIB代理；</p>
+<p>CGLIB：就是一个强大的,高性能的代码生成库,主要通过 对字节码的操作为对象引入间接级别,以控制对象的访问)；</p>
+</div></header></article><section class="reward"> <a class="btn-reward" href="#">打赏</a><div class="reward-wrapper clearfix"><img src="/img/pl.png" title="微信"></div></section><div class="comments" id="lv-container" data-id="city" data-uid="your uid"><script>(function(d, s) {var j, e = d.getElementsByTagName(s)[0];if (typeof LivereTower === 'function') { return; } j = d.createElement(s);j.src = 'https://cdn-city.livere.com/js/embed.dist.js';j.async = true;e.parentNode.insertBefore(j, e);})(document, 'script');</script></div></main><footer class="foot"><div class="foot-copy">&copy; 2019 浦雷</div></footer><script src="/js/scroller.js"></script><script src="/js/main.js"></script></body></html>
