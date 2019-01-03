@@ -1,29 +1,29 @@
 <!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.8.0"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="author" content="浦雷"><link rel="alternative" href="/atom.xml" title="浦雷" type="application/atom+xml"><link rel="icon" href="/favicon.png"><title>Redis简介 - 浦雷</title><link rel="stylesheet" href="/css/main.css"><link rel="stylesheet" href="/js/fancybox/jquery.fancybox.min.css"><!--[if lt IE 9]><script>(function(a,b){a="abbr article aside audio bdi canvas data datalist details dialog figcaption figure footer header hgroup main mark meter nav output progress section summary template time video".split(" ");for(b=a.length-1;b>=0;b--)document.createElement(a[b])})()</script><![endif]--><script src="/js/jquery-3.1.1.min.js"></script><script src="/js/fancybox/jquery.fancybox.min.js"></script></head><body style="opacity:0"><header class="head"><h1 class="head-title u-fl"><a href="/">浦雷</a></h1><nav class="head-nav u-fr"><ul class="head-nav__list"><li class="head-nav__item"><a class="head-nav__link" href="/archives">博客文章/（点我呀！）</a></li></ul></nav></header><main class="main"><article class="post"><header class="post__head"> <time class="post__time" datetime="2019-01-03T02:32:42.794Z">January 3, 2019</time><h1 class="post__title"><a href="/2019/01/03/Redis简介/">Redis简介</a></h1><div class="post__main echo"><p>Redis是当前比较热门的NOSQL系统之一，它是一个开源的使用ANSI c语言编写的key-value存储系统（区别于MySQL的二维表格的形式存储。）。和Memcache类似，但很大程度补偿了Memcache的不足。和Memcache一样，Redis数据都是缓存在计算机内存中，不同的是，Memcache只能将数据缓存到内存中，无法自动定期写入硬盘，这就表示，一断电或重启，内存清空，数据丢失。所以Memcache的应用场景适用于缓存无需持久化的数据。而Redis不同的是它会周期性的把更新的数据写入磁盘或者把修改操作写入追加的记录文件，实现数据的持久化</p>
-<p>—bash</p>
-<h2 id="1-1、Redis的特点"><a href="#1-1、Redis的特点" class="headerlink" title="1.1、Redis的特点"></a>1.1、Redis的特点</h2><p>Redis读取的速度是110000次/s，写的速度是81000次/s</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1.1、Redis的特点</span><br></pre></td></tr></table></figure>
+<p>Redis读取的速度是110000次/s，写的速度是81000次/s</p>
 <p>原子 。Redis的所有操作都是原子性的，同时Redis还支持对几个操作全并后的原子性执行。</p>
 <p>支持多种数据结构：string（字符串）；list（列表）；hash（哈希），set（集合）；zset(有序集合)</p>
 <p>持久化，主从复制（集群）</p>
 <p>支持过期时间，支持事务，消息订阅。</p>
 <p>官方不支持window,但是又第三方版本。</p>
 <hr>
-<h2 id="title-2、Redis的应用场景景"><a href="#title-2、Redis的应用场景景" class="headerlink" title="title:2、Redis的应用场景景"></a>title:2、Redis的应用场景景</h2><p>—bash</p>
-<h2 id="2-1、数据缓存（提高访问性能）"><a href="#2-1、数据缓存（提高访问性能）" class="headerlink" title="2.1、数据缓存（提高访问性能）"></a>2.1、数据缓存（提高访问性能）</h2><p>将一些数据在短时间之内不会发生变化，而且它们还要被频繁访问，为了提高用户的请求速度和降低网站的负载，降低数据库的读写次数，就把这些数据放到缓存中。</p>
+<h2 id="title-2、Redis的应用场景景"><a href="#title-2、Redis的应用场景景" class="headerlink" title="title:2、Redis的应用场景景"></a>title:2、Redis的应用场景景</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2.1、数据缓存（提高访问性能）</span><br></pre></td></tr></table></figure>
+<p>将一些数据在短时间之内不会发生变化，而且它们还要被频繁访问，为了提高用户的请求速度和降低网站的负载，降低数据库的读写次数，就把这些数据放到缓存中。</p>
 <p>缓存的两种形式：<br>页面缓存经常用在CMS(content manage system)内存管理系统里面。<br>数据缓存经常会用在页面的具体数据里面。</p>
 <p>页面缓存：第一次从数据库中读取，然后生成一个静态页面，以后所有的读取，只加载这个静态页面就可以了。</p>
 <p>数据缓存：由于一个页面有几种需要从不同的缓存中读取数据的模块，所以不适合使用页面缓存。</p>
-<p>—bash</p>
-<h2 id="redis仅用做缓存配置"><a href="#redis仅用做缓存配置" class="headerlink" title="redis仅用做缓存配置"></a>redis仅用做缓存配置</h2><p>将redis当做缓存使用LRU算法的缓存来使用；LRU是Redis唯一支持的回收方法。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis仅用做缓存配置</span><br></pre></td></tr></table></figure>
+<p>将redis当做缓存使用LRU算法的缓存来使用；LRU是Redis唯一支持的回收方法。</p>
 <p>如果你想把Redis当做一个缓存来用，所有的key都有过期时间，那么你可以考虑 使用以下设置（假设最大内存使用量为2M）：</p>
 <p>maxmemory 2mb   #maxmemory配置指令用于配置Redis存储数据时指定限制的内存大小。<br>maxmemory-policy allkeys-lru   #设置maxmemory为0代表没有内存限制。</p>
 <p>以上设置并不需要我们的应用使用EXPIRE(或相似的命令)命令去设置每个key的过期时间，因为 只要内存使用量到达2M，Redis就会使用类LRU算法自动删除某些key。</p>
 <p>相比使用额外内存空间存储多个键的过期时间，使用缓存设置是一种更加有效利用内存的方式。而且相比每个键固定的 过期时间，使用LRU也是一种更加推荐的方式，因为这样能使应用的热数据(更频繁使用的键) 在内存中停留时间更久。</p>
 <p>基本上这么配置下的Redis可以当成memcached使用。</p>
 <p>当我们把Redis当成缓存来使用的时候，如果应用程序同时也需要把Redis当成存储系统来使用，那么强烈建议 使用两个Redis实例。一个是缓存，使用上述方法进行配置，另一个是存储，根据应用的持久化需求进行配置，并且 只存储那些不需要被缓存的数据。</p>
-<p>—bash</p>
-<h2 id="2-2、会话缓存"><a href="#2-2、会话缓存" class="headerlink" title="2.2、会话缓存"></a>2.2、会话缓存</h2><p>（session cache，保存web会话信息）</p>
-<p>—bash</p>
-<h2 id="2-3、排行榜-计数器"><a href="#2-3、排行榜-计数器" class="headerlink" title="2.3、排行榜/计数器"></a>2.3、排行榜/计数器</h2><p>（NGINX+lua+redis计数器进行IP自动封禁）</p>
-<p>—bash</p>
-<h2 id="2-4、消息队列"><a href="#2-4、消息队列" class="headerlink" title="2.4、消息队列"></a>2.4、消息队列</h2><p>（构建实时消息系统，聊天，群聊）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2.2、会话缓存</span><br></pre></td></tr></table></figure>
+<p>（session cache，保存web会话信息）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2.3、排行榜/计数器</span><br></pre></td></tr></table></figure>
+<p>（NGINX+lua+redis计数器进行IP自动封禁）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2.4、消息队列</span><br></pre></td></tr></table></figure>
+<p>（构建实时消息系统，聊天，群聊）</p>
 </div></header></article><section class="reward"> <a class="btn-reward" href="#">打赏</a><div class="reward-wrapper clearfix"><img src="/img/pl.png" title="微信"></div></section><div class="comments" id="lv-container" data-id="city" data-uid="your uid"><script>(function(d, s) {var j, e = d.getElementsByTagName(s)[0];if (typeof LivereTower === 'function') { return; } j = d.createElement(s);j.src = 'https://cdn-city.livere.com/js/embed.dist.js';j.async = true;e.parentNode.insertBefore(j, e);})(document, 'script');</script></div></main><footer class="foot"><div class="foot-copy">&copy; 2019 浦雷</div></footer><script src="/js/scroller.js"></script><script src="/js/main.js"></script></body></html>
