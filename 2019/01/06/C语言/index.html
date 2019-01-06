@@ -1,0 +1,71 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.8.0"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="author" content="浦雷"><link rel="alternative" href="/atom.xml" title="浦雷" type="application/atom+xml"><link rel="icon" href="/favicon.png"><title>C语言 - 浦雷</title><link rel="stylesheet" href="/css/main.css"><link rel="stylesheet" href="/js/fancybox/jquery.fancybox.min.css"><!--[if lt IE 9]><script>(function(a,b){a="abbr article aside audio bdi canvas data datalist details dialog figcaption figure footer header hgroup main mark meter nav output progress section summary template time video".split(" ");for(b=a.length-1;b>=0;b--)document.createElement(a[b])})()</script><![endif]--><script src="/js/jquery-3.1.1.min.js"></script><script src="/js/fancybox/jquery.fancybox.min.js"></script></head><body style="opacity:0"><header class="head"><h1 class="head-title u-fl"><a href="/">浦雷</a></h1><nav class="head-nav u-fr"><ul class="head-nav__list"><li class="head-nav__item"><a class="head-nav__link" href="/archives">博客文章/（点我呀！）</a></li></ul></nav></header><main class="main"><article class="post"><header class="post__head"> <time class="post__time" datetime="2019-01-06T08:58:23.294Z">January 6, 2019</time><h1 class="post__title"><a href="/2019/01/06/C语言/">C语言</a></h1><div class="post__main echo"><p>#include &lt;stdio.h&gt;<br>int main()<br>{<br>    int number;</p>
+<pre><code>printf(&quot;输入一个整数: &quot;);  
+
+scanf(&quot;%d&quot;, &amp;number);  
+
+printf(&quot;你输入的整数是: %d&quot;, number);
+return 0;
+</code></pre><p>}</p>
+<p>对应的字节数：<br>int 4<br>char 1<br>long 8<br>float 4<br>double 8<br>long long 8<br>long double 16</p>
+<p>两个数交换：</p>
+<p> #include &lt;stdio.h&gt;</p>
+<p>int main()<br>{<br>      double firstNumber, secondNumber, temporaryVariable;</p>
+<pre><code>printf(&quot;输入第一个数字: &quot;);
+scanf(&quot;%lf&quot;, &amp;firstNumber);
+
+printf(&quot;输入第二个数字: &quot;);
+scanf(&quot;%lf&quot;,&amp;secondNumber);
+
+// 将第一个数的值赋值给 temporaryVariable
+temporaryVariable = firstNumber;
+
+// 第二个数的值赋值给 firstNumber
+firstNumber = secondNumber;
+
+// 将 temporaryVariable 赋值给 secondNumber
+secondNumber = temporaryVariable;
+
+printf(&quot;\n交换后, firstNumber = %.2lf\n&quot;, firstNumber);
+printf(&quot;交换后, secondNumber = %.2lf&quot;, secondNumber);
+
+return 0;
+</code></pre><p>}</p>
+<p>交换两个数：</p>
+<p>#include&lt;stdio.h&gt;<br>int main(){<br>    int a,b,c;<br>    printf(“please two shu:”);<br>    scanf(“%d %d”,&amp;a,&amp;b);<br>    printf(“exchange before:a=%d b=%d\n”,a,b);<br>    c=a;<br>    a=b;<br>    b=c;<br>    printf(“exchange after:a=%d b=%d”,a,b);<br>}</p>
+<p>判断是否为奇偶数</p>
+<p>#include&lt;stdio.h&gt;<br>int main(){<br>    int a;<br>    printf(“please input number:”);<br>    scanf(“%d”,&amp;a);<br>    if(a%2==0){<br> printf(“%d is evenNumber”,a);<br>    }else{<br> printf(“%d is oddNumber”,a);<br>    }</p>
+<pre><code>return 0;
+</code></pre><p>}</p>
+<p>循环判断奇偶数：</p>
+<p>#include&lt;stdio.h&gt;<br>int main(){<br>    int a;<br>    printf(“please input to 10 number judge:”);<br>    scanf(“%d “,&amp;a);<br>    for(a;a&lt;=10;a++){<br> if(a%2==0){<br>     printf(“%d is evenNumber\n”,a);<br> }else{<br>     printf(“%d is oddNumber\n”,a);<br> }<br>    };<br>    return 0;<br>}</p>
+<p>讲解：</p>
+<p>C语言格式输入函数scanf()详解<br>scanf函数称为格式输入函数，即按用户指定的格式从键盘上把数据输入到指定的变量之中。</p>
+<p>scanf函数的一般形式</p>
+<p>scanf函数是一个标准库函数，它的函数原型在头文件“stdio.h”中。与printf函数相同，C语言也允许在使用scanf函数之前不必包含stdio.h文件。scanf函数的一般形式为：<br>    scanf(“格式控制字符串”, 地址表列);<br>其中，格式控制字符串的作用与printf函数相同，但不能显示非格式字符串，也就是不能显示提示字符串。地址表列中给出各变量的地址。地址是由地址运算符“&amp;”后跟变量名组成的。</p>
+<p>例如：&amp;a、&amp;b分别表示变量a和变量b的地址。</p>
+<p>这个地址就是编译系统在内存中给a、b变量分配的地址。在C语言中，使用了地址这个概念，这是与其它语言不同的。 应该把变量的值和变量的地址这两个不同的概念区别开来。变量的地址是C编译系统分配的，用户不必关心具体的地址是多少。</p>
+<p>变量的地址和变量值的关系<br>在赋值表达式中给变量赋值，如：<br>    a=567;<br>则，a为变量名，567是变量的值，&amp;a是变量a的地址。</p>
+<p>但在赋值号左边是变量名，不能写地址，而scanf函数在本质上也是给变量赋值，但要求写变量的地址，如&amp;a。这两者在形式上是不同的。&amp;是一个取地址运算符，&amp;a是一个表达式，其功能是求变量的地址。</p>
+<p>【例4-7】</p>
+<p>#include &lt;stdio.h&gt;<br>int main(void){<br>    int a,b,c;<br>    printf(“input a,b,c\n”);<br>    scanf(“%d%d%d”,&amp;a,&amp;b,&amp;c);<br>    printf(“a=%d,b=%d,c=%d”,a,b,c);<br>    return 0;<br>}<br>在本例中，由于scanf函数本身不能显示提示串，故先用printf语句在屏幕上输出提示，请用户输入a、b、c的值。执行scanf语句，等待用户输入。在scanf语句的格式串中由于没有非格式字符在“%d%d%d”之间作输入时的间隔，因此在输入时要用一个以上的空格或回车键作为每两个输入数之间的间隔。如：<br>7 8 9<br>或<br>7<br>8<br>9<br>格式字符串<br>格式字符串的一般形式为：<br>    %[*][输入数据宽度][长度]类型<br>其中有方括号[]的项为任选项。各项的意义如下。</p>
+<p>1) 类型<br>表示输入数据的类型，其格式符和意义如下表所示。<br>格式 字符意义<br>d 输入十进制整数<br>o 输入八进制整数<br>x 输入十六进制整数<br>u 输入无符号十进制整数<br>f或e 输入实型数(用小数形式或指数形式)<br>c 输入单个字符<br>s 输入字符串<br>2) “<em>”符<br>用以表示该输入项，读入后不赋予相应的变量，即跳过该输入值。如：<br>scanf(“%d %</em>d %d”,&amp;a,&amp;b);<br>当输入为：1   2   3时，把1赋予a，2被跳过，3赋予b。</p>
+<p>3) 宽度<br>用十进制整数指定输入的宽度（即字符数）。例如：<br>scanf(“%5d”,&amp;a);<br>输入12345678只把12345赋予变量a，其余部分被截去。又如：<br>scanf(“%4d%4d”,&amp;a,&amp;b);<br>输入12345678将把1234赋予a，而把5678赋予b。</p>
+<p>4) 长度<br>长度格式符为l和h，l表示输入长整型数据（如%ld）和双精度浮点数（如%lf）。h表示输入短整型数据。</p>
+<p>使用scanf函数还必须注意以下几点：<br>scanf函数中没有精度控制，如：scanf(“%5.2f”,&amp;a);是非法的。不能企图用此语句输入小数为2位的实数。<br>scanf中要求给出变量地址，如给出变量名则会出错。如 scanf(“%d”,a);是非法的，应改为scnaf(“%d”,&amp;a);才是合法的。<br>在输入多个数值数据时，若格式控制串中没有非格式字符作输入数据之间的间隔则可用空格，TAB或回车作间隔。C编译在碰到空格，TAB，回车或非法数据(如对“%d”输入“12A”时，A即为非法数据)时即认为该数据结束。<br>在输入字符数据时，若格式控制串中无非格式字符，则认为所有输入的字符均为有效字符。</p>
+<p>例如：<br>scanf(“%c%c%c”,&amp;a,&amp;b,&amp;c);<br>输入 d、e、f 则把’d’赋予a，’ ‘ 赋予b，’e’赋予c。只有当输入为 def 时，才能把’d’赋于a，’e’赋予b，’f’赋予c。</p>
+<p>如果在格式控制中加入空格作为间隔，如：<br>scanf (“%c %c %c”,&amp;a,&amp;b,&amp;c);<br>则输入时各数据之间可加空格。</p>
+<p>【例4-8】</p>
+<p>#include &lt;stdio.h&gt;<br>int main(void){<br>    char a,b;<br>    printf(“input character a,b\n”);<br>    scanf(“%c%c”,&amp;a,&amp;b);<br>    printf(“%c%c\n”,a,b);<br>    return 0;<br>}<br>由于scanf函数”%c%c”中没有空格，输入M  N，结果输出只有M。而输入改为MN时则可输出MN两字符。</p>
+<p>【例4-9】</p>
+<p>#include &lt;stdio.h&gt;<br>int main(void){<br>    char a,b;<br>    printf(“input character a,b\n”);<br>    scanf(“%c %c”,&amp;a,&amp;b);<br>    printf(“\n%c%c\n”,a,b);<br>    return 0;<br>}<br>本例表示scanf格式控制串”%c %c”之间有空格时，输入的数据之间可以有空格间隔。</p>
+<p>5) 如果格式控制串中有非格式字符则输入时也要输入该非格式字符。<br>例如：<br>scanf(“%d,%d,%d”,&amp;a,&amp;b,&amp;c);<br>其中用非格式符“ , ”作间隔符，故输入时应为：5,6,7。又如：<br>scanf(“a=%d,b=%d,c=%d”,&amp;a,&amp;b,&amp;c);<br>则输入应为：a=5,b=6,c=7。</p>
+<p>6) 如输入的数据与输出的类型不一致时，虽然编译能够通过，但结果将不正确。</p>
+<p>【例4-10】</p>
+<p>#include &lt;stdio.h&gt;<br>int main(void){<br>    int a;<br>    printf(“input a number\n”);<br>    scanf(“%d”,&amp;a);<br>    printf(“%ld”,a);<br>    return 0;<br>}<br>由于输入数据类型为整型，而输出语句的格式串中说明为长整型，因此输出结果和输入数据不符。如改动程序如下（【例4-11】）：</p>
+<p>#include &lt;stdio.h&gt;<br>int main(void){<br>    long a;<br>    printf(“input a long integer\n”);<br>    scanf(“%ld”,&amp;a);<br>    printf(“%ld”,a);<br>    return 0;<br>}<br>运行结果为：<br>input a long integer<br>1234567890<br>1234567890</p>
+<p>当输入数据改为长整型后，输入输出数据相等。</p>
+<p>【例4-12】</p>
+<p>#include &lt;stdio.h&gt;<br>int main(void){<br>    char a,b,c;<br>    printf(“input character a,b,c\n”);<br>    scanf(“%c %c %c”,&amp;a,&amp;b,&amp;c);<br>    printf(“%d,%d,%d\n%c,%c,%c\n”,a,b,c,a-32,b-32,c-32);<br>    return 0;<br>}<br>输入三个小写字母，输出其ASCII码和对应的大写字母。</p>
+<p>【例4-13】</p>
+<p>#include &lt;stdio.h&gt;<br>int main(void){<br>    int a;<br>    long b;<br>    float f;<br>    double d;<br>    char c;<br>    printf(“\nint:%d\nlong:%d\nfloat:%d\ndouble:%d\nchar:%d\n”,sizeof(a),sizeof(b),sizeof(f),sizeof(d),sizeof(c));<br>    return 0;<br>}</p>
+</div></header></article><section class="reward"> <a class="btn-reward" href="#">打赏</a><div class="reward-wrapper clearfix"><img src="/img/pl.png" title="微信"></div></section><div class="comments" id="lv-container" data-id="city" data-uid="your uid"><script>(function(d, s) {var j, e = d.getElementsByTagName(s)[0];if (typeof LivereTower === 'function') { return; } j = d.createElement(s);j.src = 'https://cdn-city.livere.com/js/embed.dist.js';j.async = true;e.parentNode.insertBefore(j, e);})(document, 'script');</script></div></main><footer class="foot"><div class="foot-copy">&copy; 2019 浦雷</div></footer><script src="/js/scroller.js"></script><script src="/js/main.js"></script></body></html>
